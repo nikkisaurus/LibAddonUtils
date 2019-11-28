@@ -56,10 +56,68 @@ For each file you want to use this library on, create an object to reference Lib
 ### Core Methods
 
 #### U.count(tbl)
+*Counts the number of entries in a table.*
+
+**tbl**: table to be counted.
+**Returns** count as integer.
+
+[top](#table-of-contents)
+
 #### U.pairs(tbl, func)
+
+*Iterates through a table based on keys.*
+
+**tbl**: table to be iterated.
+**func**: custom sort function.
+
+[top](#table-of-contents)
+
 #### U.printt(tbl, cond)
+
+*Prints out table keys/values.*
+
+**tbl**: table to be printed.
+**cond**:
+&nbsp;&nbsp;&nbsp;&nbsp;***1*** - print only keys.
+&nbsp;&nbsp;&nbsp;&nbsp;***2*** - print only values.
+&nbsp;&nbsp;&nbsp;&nbsp;***nil*** - print key/value pairs.
+
+
+[top](#table-of-contents)
+
 #### U.round(num, decimals)
+
+*Rounds a number to x decimals.*
+
+**num**: integer to be rounded.
+**decimals**: the number of decimal places to round to.
+
+[top](#table-of-contents)
+
 #### U.unpack(tbl, default)
+
+*Enhanced unpack function that will unpack tables with integer and string indexes and allows you to return a default table if your supplied table can't be unpacked.*
+
+**tbl**: table to be unpacked.
+**default**: table to unpack and return if *tbl* is invalid.
+
+**Example**
+
+```
+db.style = "minimal"
+local styles = {
+    ["default"] = {
+        rgba = {1, 1, 1, 1}
+    },
+    ["minimal"] = {
+    },
+}
+
+texture:SetColorTexture(unpack(styles[db.style].rgba))
+```
+The above example will cause a lua error because SetColorTexture expects the arguments (r, g, b, [a]) and the table that's being unpacked will return nil. Instead, we can pass it a default value in case this happens.
+
+```texture:SetColorTexture(U.unpack(styles[db.style].rgba, {0, 0, 0, .75}))```
 
 [top](#table-of-contents)
 
@@ -67,8 +125,10 @@ For each file you want to use this library on, create an object to reference Lib
 
 #### U.CacheItems(*itemID*, *callback*, *args*)
 
-**itemID**: Valid item ID, as a string.
-**callback**: Function to be called when item has successfully been cached.
-**args**: Arguments to be sent to your callback function, as a vararg (not a table).
+*Cache an item ID to make the info table available when it hasn't already been cached. You can supply a callback to run whatever code you need to with the returned item info table.*
+
+**itemID**: valid item ID, as a string.
+**callback**: function to be called when item has successfully been cached.
+**args**: arguments to be sent to your callback function, as a vararg (not a table).
 
 [top](#table-of-contents)

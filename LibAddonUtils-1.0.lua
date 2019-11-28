@@ -90,13 +90,15 @@ function lib.CacheItems(itemID, callback, ...)
     local args = {...}
     if type(itemID) == "table" then
         itemID = callback
-        callback = args[1]
-        args[1] = nil
+        if callback then
+            callback = args[1]
+            args[1] = nil
+        end
     end
 
     if itemID and not GetItemInfo(itemID) then
         tinsert(cache, {itemID, callback, lib.unpack(args)})
-    else
+    elseif callback then
         callback(lib.unpack(args))
     end
 end
