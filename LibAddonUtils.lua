@@ -1,12 +1,20 @@
-local lib = LibStub:NewLibrary("LibAddonUtils", 1)
-local f = CreateFrame("Frame")
-f:SetScript("OnEvent", function(self, event, ...)
+local lib = LibStub:NewLibrary("LibAddonUtils-1.0", 1)
+
+if not lib then
+  return
+end
+
+if not lib.frame then
+    lib.frame = CreateFrame("Frame")
+end
+
+lib.frame:SetScript("OnEvent", function(self, event, ...)
     return self[event] and self[event](self, event, ...)
 end)
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Core utilities
 
-function lib.count(tbl)
+function lib.tcount(tbl)
     local counter = 0
     for k, v in pairs(tbl) do
         counter = counter + 1
@@ -86,7 +94,7 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Addon utilities
 
 local cache = {}
-function lib.CacheItems(itemID, callback, ...)
+function lib.CacheItem(itemID, callback, ...)
     local args = {...}
     if type(itemID) == "table" then
         itemID = callback
@@ -96,22 +104,26 @@ function lib.CacheItems(itemID, callback, ...)
         end
     end
 
+    itemID = GetItemInfoInstant(itemID)
     if itemID and not GetItemInfo(itemID) then
         tinsert(cache, {itemID, callback, lib.unpack(args)})
+        return false
     elseif callback then
         callback(lib.unpack(args))
+        return true
     end
 end
 -- To do: set up support for itemName/itemLink
 -- Will have to check if it's not an id, then save the id and add it to the table.
 
-f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
-function f:GET_ITEM_INFO_RECEIVED(_, itemID, success)
+lib.frame:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+function lib.frame:GET_ITEM_INFO_RECEIVED(_, itemID, success)
     if (not itemID or not success) then return end
 
+    local itemName, itemLink = GetItemInfo(itemID)
     for k, v in pairs(cache) do
-        if v[1] == itemID then
-            lib:CacheItems(lib.unpack(cache[k]))
+        if v[1] == itemName or v[1] == itemLink or v[1] == itemID then
+            lib:CacheItem(lib.unpack(cache[k]))
             cache[k] = nil
         end
     end
