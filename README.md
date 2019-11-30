@@ -1,36 +1,32 @@
 # LibAddonUtils
-*This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of useful tools for any addon.*
+*This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of basic addon development tools.*
 
 ## Table of Contents
-1. [Getting Started](#getting-started)
-   - [Embedding the library](#embedding-the-library)
-     - [Creating the .xml file](#creating-the-xml-file)
-     - [Updating your .toc](#updating-your-toc)
-   - [Creating an addon object](#creating-an-addon-object)
-2. [API](#api)
-   - [Core Methods](#core-methods)
-   - [Other Methods](#other-methods)
+- [Embedding the library](#embedding-the-library)
+- [API](#api)<br>&nbsp;&nbsp;&nbsp;- [CacheItem](#cacheitemitem-callback-args)<br>&nbsp;&nbsp;&nbsp;- [tcount](#tcounttbl)<br>&nbsp;&nbsp;&nbsp;- [pairs](#pairstbl-func)<br>&nbsp;&nbsp;&nbsp;- [printt](#printttbl-condition)<br>&nbsp;&nbsp;&nbsp;- [round](#roundnumber-decimals)<br>&nbsp;&nbsp;&nbsp;- [unpack](#unpacktbl-default)
 
-## Documentation
-### Getting Started
-#### Embedding the library
-##### Creating the .xml file
-Create an embeds.xml file. This file should look something like this:
+## Embedding the library
+**1. Create a folder called *Libs* in your addon directory and copy *LibAddonUtils* to this folder.**
+You can also place LibAddonUtils in your main directory, but having your libraries separate can help keep things organized.
+
+```ExampleAddon/Libs/LibAddonUtils```
+
+**2. Create an XML file.**
+```ExampleAddon/Libs/embeds.xml```
+
+If you are using multiple libraries, you can call them in the same file. The paths to libraries you are including should be relative to the embeds file.
+
+In this example, my embeds.xml is in the Libs folder with all of the libraries I want to load:
 
 ```
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
-    <Script file="LibAddonUtils\LibStub\LibStub.lua"/>
-    <Script file="LibAddonUtils\LibAddonUtils.lua"/>
+    <Include file="LibAddonUtils\LibAddonUtils.xml"/>
 </Ui>
 ```
 
-The sample code above assumes your embeds file is in the same directory as LibAddonUtils's directory. If your embeds file is in a different directory, update the path to correctly point to LibAddonUtils.lua.
+**Note**: You don't have to use an XML file to load libraries. You may also call them directly in your TOC.
 
-[top](#table-of-contents)
-
-##### Updating your .toc
-Call your embeds file after your metadata but before any addon files.
-
+**3. Update your TOC.**
 ```
 ## Interface: 80200
 ## Title: ExampleAddon
@@ -38,63 +34,99 @@ Call your embeds file after your metadata but before any addon files.
 ## Author: Me
 ## Version: 1.0
 
-embeds.xml
+Libs\embeds.xml
 
 Core.lua
 ```
+Always call libraries before your core addon files. Any files loaded before your embeds will not have access to the libraries.
 
-[top](#table-of-contents)
+If you would rather skip the XML, point to the library's XML file instead:
 
-#### Creating an addon object
-For each file you want to use this library on, create an object to reference LibAddonUtils. You can then use this object to reference any library methods.
+```Libs\LibAddonUtils\LibAddonUtils.xml```
 
-```local U = LibStub("LibAddonUtils")```
+**4. Create an addon object.**
+In your core addon file, you need to create an object to reference LibAddonUtils. This library uses LibStub, so you can do that like this:
 
-[top](#table-of-contents)
+```local LibAddonUtils = LibStub("LibAddonUtils-1.0")```
+
+You can now access any of this library's functions with this reference.
+
+[top](#libaddonutils)
 
 ## API
-### Core Methods
+### .CacheItem(*item, callback, args*)
+*Use this method to cache items before calling GetItemInfo. You can supply a callback to execute when the item table is available.*
 
-#### U.count(tbl)
+**Args:**
+**itemID**: valid itemID, itemLink, itemName, or itemString.<br>**callback**: function to be called when the item has successfully been cached.<br>**args**: arguments to be sent to your callback function, as a vararg.
+
+**Returns:**
+*true* or *false* when item table is available.
+
+**Example:**
+```
+> local itemName = GetItemInfo(168487)
+> print(itemName)
+nil
+```
+```
+> LibAddonUtils.CacheItem(168487, function(itemID) print(GetItemInfo(itemID)) end, 168487)
+Zin'anthid
+```
+
+[top](#libaddonutils)
+
+### .tcount(*tbl*)
 *Counts the number of entries in a table.*
 
-**tbl**: table to be counted.<br>**Returns** count as integer.
+**Args:**
+**tbl**: table to be counted.
 
-[top](#table-of-contents)
+**Returns:**
+*count* as an integer.
 
-#### U.pairs(tbl, func)
+[top](#libaddonutils)
+
+### .pairs(*tbl, func*)
 
 *Iterates through a table based on keys.*
 
+**Args:**
 **tbl**: table to be iterated.<br>**func**: custom sort function.
 
-[top](#table-of-contents)
+[top](#libaddonutils)
 
-#### U.printt(tbl, cond)
+### .printt(*tbl, condition*)
 
 *Prints out table keys/values.*
 
-**tbl**: table to be printed.<br><br>**cond**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - print only keys.<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - print only values.<br>&nbsp;&nbsp;&nbsp;&nbsp;***nil*** - print key/value pairs.
+**Args:**
+**tbl**: table to be printed.<br>**condition**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - prints key names.<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - prints table values.<br>&nbsp;&nbsp;&nbsp;&nbsp;***nil*** - prints key/value pairs.
 
+[top](#libaddonutils)
 
-[top](#table-of-contents)
-
-#### U.round(num, decimals)
+### .round(*number, decimals*)
 
 *Rounds a number to x decimals.*
 
-**num**: integer to be rounded.<br>**decimals**: the number of decimal places to round to.
+**Args:**
+**number**: integer to be rounded.<br>**decimals**: the number of decimal places to round to.
 
-[top](#table-of-contents)
+**Example:**
+```
+> print(LibAddonUtils.round(3.14, 0))
+3
+```
 
-#### U.unpack(tbl, default)
+[top](#libaddonutils)
 
-*Enhanced unpack function that will unpack tables with integer and string indexes and allows you to return a default table if your supplied table can't be unpacked.*
+### .unpack(*tbl, default*)
+*Unpacks tables with or without indexes (unlike the default behavior of unpack, which only accepts non-indexed tables) and allows you to specify a default table to return if tbl cannot be unpacked.*
 
-**tbl**: table to be unpacked.<br>**default**: table to unpack and return if *tbl* is invalid.
+**Args:**
+**tbl**: table to be unpacked.<br>**default**: table to unpack if *tbl* is invalid.
 
-**Example**
-
+**Example:**
 ```
 db.style = "minimal"
 local styles = {
@@ -104,21 +136,12 @@ local styles = {
     ["minimal"] = {
     },
 }
-
-texture:SetColorTexture(unpack(styles[db.style].rgba))
 ```
-The above example will cause a lua error because SetColorTexture expects the arguments (r, g, b, [a]) and the table that's being unpacked will return nil. Instead, we can pass it a default value in case this happens.
 
-```texture:SetColorTexture(U.unpack(styles[db.style].rgba, {0, 0, 0, .75}))```
+The following will cause a Lua error:
+```texture:SetColorTexture(unpack(styles[db.style].rgba))```
 
-[top](#table-of-contents)
+Use this method to pass a default table .
+```texture:SetColorTexture(LibAddonUtils.unpack(styles[db.style].rgba, {0, 0, 0, .75}))```
 
-### Other Methods
-
-#### U.CacheItems(*itemID*, *callback*, *args*)
-
-*Cache an item ID to make the info table available when it hasn't already been cached. You can supply a callback to run whatever code you need to with the returned item info table.*
-
-**itemID**: valid item ID, as a string.<br>**callback**: function to be called when item has successfully been cached.<br>**args**: arguments to be sent to your callback function, as a vararg (not a table).
-
-[top](#table-of-contents)
+[top](#libaddonutils)

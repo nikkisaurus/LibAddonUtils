@@ -1,9 +1,10 @@
 ## Interface: 80200
 ## Title: Lib: LibAddonUtils
-## Notes: Collection of useful tools for addon authors.
 ## Author: Nikketa-Hyjal-US
-## Version: 1.0
+## Notes: Collection of useful tools for addon authors.
+## Version: @project-version@
 ## X-Category: Library
+## X-Curse-Project-ID: 352953
+## X-WoWI-ID: 25461
 
-LibStub\LibStub.lua
-LibAddonUtils.lua
+LibAddonUtils.xml
