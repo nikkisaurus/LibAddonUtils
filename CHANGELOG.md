@@ -1,3 +1,4 @@
+# LibAddonUtils
 ## Version 1.1
 - **CacheItems** has been renamed to **CacheItem**.
 - **CacheItem** now accepts *itemString*, *itemLink* and *itemName* in addition to *itemID*.
