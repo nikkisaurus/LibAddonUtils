@@ -3,7 +3,7 @@
 
 ## Table of Contents
 - [Embedding the library](#embedding-the-library)
-- [API](#api)<br>&nbsp;&nbsp;&nbsp;- [CacheItem](#cacheitemitem-callback-args)<br>&nbsp;&nbsp;&nbsp;- [ColorFontString](#colorfontstringstr-color)<br>&nbsp;&nbsp;&nbsp;- [iformat](#iformatint-ftype)<br>&nbsp;&nbsp;&nbsp;- [pairs](#pairstbl-func)<br>&nbsp;&nbsp;&nbsp;- [printt](#printttbl-condition)<br>&nbsp;&nbsp;&nbsp;- [round](#roundnumber-decimals)<br>&nbsp;&nbsp;&nbsp;- [tcount](#tcounttbl-key-value)<br>&nbsp;&nbsp;&nbsp;- [tpairs](#tpairstbl-callback-duration-key-value)<br>&nbsp;&nbsp;&nbsp;- [unpack](#unpacktbl-default)
+- [API](#api)<br>&nbsp;&nbsp;&nbsp;- [CacheItem](#cacheitemitem-callback-args)<br>&nbsp;&nbsp;&nbsp;- [ColorFontString](#colorfontstringstr-color)<br>&nbsp;&nbsp;&nbsp;- [GetTableKey](#gettablekeytbl-value)<br>&nbsp;&nbsp;&nbsp;- [iformat](#iformatint-ftype)<br>&nbsp;&nbsp;&nbsp;- [pairs](#pairstbl-func)<br>&nbsp;&nbsp;&nbsp;- [printt](#printttbl-condition)<br>&nbsp;&nbsp;&nbsp;- [round](#roundnumber-decimals)<br>&nbsp;&nbsp;&nbsp;- [tcount](#tcounttbl-key-value)<br>&nbsp;&nbsp;&nbsp;- [tpairs](#tpairstbl-callback-duration-key-value)<br>&nbsp;&nbsp;&nbsp;- [unpack](#unpacktbl-default)
 
 ## Embedding the library
 **1. Create a folder called *Libs* in your addon directory and copy *LibAddonUtils* to this folder.**
@@ -84,6 +84,17 @@ Zin'anthid
 
 **Returns:**
 the colored font string.
+
+[top](#libaddonutils)
+
+### .GetTableKey(*tbl, value*)
+*Finds the key of the supplied table value.*
+
+**Args:**
+**tbl**: table to be searched.<br>**value**: value to match.
+
+**Returns:**
+all matched keys.
 
 [top](#libaddonutils)
 

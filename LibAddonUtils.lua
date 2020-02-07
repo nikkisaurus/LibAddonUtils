@@ -218,31 +218,6 @@ function lib.frame:GET_ITEM_INFO_RECEIVED(_, itemID, success)
     end
 end
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Anchoring
-
-function lib.CenterAnchors(obj, maxID, spacing)
-    local left, right
-    if math.fmod(maxID, 2) == 0 then
-        left = maxID / 2
-        right = left + 1
-
-        obj[left]:SetPoint("RIGHT", -spacing, 0)
-        obj[right]:SetPoint("LEFT", spacing, 0)
-    else
-        left = (maxID + 1) / 2
-        right = (maxID + 1) / 2
-        obj[left]:SetPoint("CENTER")
-    end
-
-    for id = left - 1, 1, -1 do
-        obj[id]:SetPoint("RIGHT", obj[id + 1], "LEFT", -spacing, 0)
-    end
-
-    for id = right + 1, maxID do
-        obj[id]:SetPoint("LEFT", obj[id - 1], "RIGHT", spacing, 0)
-    end
-end
-
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Strings
 
 -- Color codes courtesy of:

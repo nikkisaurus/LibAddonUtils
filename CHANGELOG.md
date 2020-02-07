@@ -1,6 +1,7 @@
 # LibAddonUtils
 ## Version 1.2
 - Added function **ColorFontString**.
+- Added function **GetTableKey**.
 - Added function **iformat**.
 - Added function **tpairs**.
 - Added parameters **key** and **value** to **tcount**.
