@@ -6,12 +6,8 @@ manual-changelog:
 
 enable-nolib-creation: no
 
-externals:
-  Libs/LibStub:
-    url: https://repos.curseforge.com/wow/libstub/trunk
-    tag: 1.0
-
 ignore:
+  - Libs/
   - README.md
   - CHANGELOG.md
   - LibAddonUtils.xml
