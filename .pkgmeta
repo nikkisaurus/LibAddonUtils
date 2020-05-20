@@ -13,3 +13,6 @@ externals:
 
 ignore:
   - README.md
+  - CHANGELOG.md
+  - LibAddonUtils.xml
+  - LibAddonUtils.toc
