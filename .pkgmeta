@@ -1,10 +1,10 @@
 package-as: LibAddonUtils
 
+enable-nolib-creation: no
+
 manual-changelog:
   filename: CHANGELOG.md
   markup-type: markdown
-
-enable-nolib-creation: no
 
 externals:
   Libs/LibStub:
