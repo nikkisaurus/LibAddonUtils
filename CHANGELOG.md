@@ -1,4 +1,7 @@
 # LibAddonUtils
+## Version 1.2.1
+- LibStub removed from LibAddonutils.xml; authors should include LibStub separately
+
 ## Version 1.2
 - Added function **ColorFontString**.
 - Added function **GetTableKey**.

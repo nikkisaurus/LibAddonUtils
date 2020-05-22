@@ -51,6 +51,8 @@ In your core addon file, you need to create an object to reference LibAddonUtils
 
 You can now access any of this library's functions with this reference.
 
+**LibStub is required to use this library.**
+
 [top](#libaddonutils)
 
 ## API
