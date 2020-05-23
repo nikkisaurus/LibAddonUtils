@@ -15,4 +15,4 @@ notifications:
 
 branches:
     only:
-    - /^\d+\.\d+(\.\d+)?(-\S*)?$/
+    - /^(\S*-v)?\d+\.\d+(\.\d+)?(-\S*)?$/
