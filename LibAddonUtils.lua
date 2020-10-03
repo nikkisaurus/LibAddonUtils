@@ -1,4 +1,4 @@
-local lib = LibStub:NewLibrary("LibAddonUtils-1.0", 1)
+local lib = LibStub:NewLibrary("LibAddonUtils-1.0", 2)
 
 if not lib then
   return
@@ -253,4 +253,20 @@ lib.ChatColors = {
 
 function lib.ColorFontString(str, color)
     return string.format("%s%s|r", lib.ChatColors[strupper(color)], str)
+end
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Embeds
+
+lib.mixinTargets = lib.mixinTargets or {}
+local mixins = {"iFormat", "round", "GetTableKey", "pairs", "printt", "tcount", "tpairs", "unpack", "CacheItem", "ColorFontString"}
+
+function lib:Embed(target)
+  for _,name in pairs(mixins) do
+    target[name] = lib[name]
+  end
+  lib.mixinTargets[target] = true
+end
+
+for target,_ in pairs(lib.mixinTargets) do
+  lib:Embed(target)
 end

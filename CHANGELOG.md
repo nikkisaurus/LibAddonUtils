@@ -1,4 +1,8 @@
 # LibAddonUtils
+## Version 1.3
+- Added Embed capability.
+
+
 ## Version 1.2.1
 - LibStub removed from LibAddonutils.xml; authors should include LibStub separately
 
