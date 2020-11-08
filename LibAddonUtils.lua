@@ -258,7 +258,7 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Embeds
 
 lib.mixinTargets = lib.mixinTargets or {}
-local mixins = {"iFormat", "round", "GetTableKey", "pairs", "printt", "tcount", "tpairs", "unpack", "CacheItem", "ColorFontString"}
+local mixins = {"iformat", "round", "GetTableKey", "pairs", "printt", "tcount", "tpairs", "unpack", "CacheItem", "ColorFontString"}
 
 function lib:Embed(target)
   for _,name in pairs(mixins) do

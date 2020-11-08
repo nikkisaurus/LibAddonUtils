@@ -1,4 +1,7 @@
 # LibAddonUtils
+## Version 1.3.1
+- Fixed bug where **iformat** method didn't embed.
+
 ## Version 1.3
 - Added Embed capability.
 
