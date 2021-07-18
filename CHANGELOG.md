@@ -1,10 +1,12 @@
 # LibAddonUtils
 ## Version 1.3.1
+- Added argument *roundDown* to **round** and **iformat**.
+
+## Version 1.3.1
 - Fixed bug where **iformat** method didn't embed.
 
 ## Version 1.3
 - Added Embed capability.
-
 
 ## Version 1.2.1
 - LibStub removed from LibAddonutils.xml; authors should include LibStub separately

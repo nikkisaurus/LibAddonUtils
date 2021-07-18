@@ -39,7 +39,7 @@ local numSuffixes = {
    [66] = "c",
 }
 
-function lib.iformat(i, fType)
+function lib.iformat(i, fType, roundDown)
     if not i then return end
     local orig = i
 
@@ -57,7 +57,7 @@ function lib.iformat(i, fType)
         end
 
         local int, dec = strsplit(".", tostring(i / 10^mod))
-        dec = dec and lib.round(dec / 10^(strlen(dec) - 1), 0) or 0
+        dec = dec and lib.round(dec / 10^(strlen(dec) - 1), 0, roundDown) or 0
 
         if dec == 10 then
             return lib.iformat(tonumber((int + 1) * 10^mod), 2), orig
@@ -70,8 +70,13 @@ end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-function lib.round(num, decimals)
-    return tonumber((("%%.%df"):format(decimals)):format(num))
+function lib.round(num, decimals, roundDown)
+    if roundDown then
+        local power = 10^decimals
+        return math.floor(num * power) / power
+    else
+        return tonumber((("%%.%df"):format(decimals)):format(num))
+    end
 end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Tables

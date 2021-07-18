@@ -2,8 +2,20 @@
 *This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of basic addon development tools.*
 
 ## Table of Contents
-- [Embedding the library](#embedding-the-library)
-- [API](#api)<br>&nbsp;&nbsp;&nbsp;- [CacheItem](#cacheitemitem-callback-args)<br>&nbsp;&nbsp;&nbsp;- [ColorFontString](#colorfontstringstr-color)<br>&nbsp;&nbsp;&nbsp;- [GetTableKey](#gettablekeytbl-value)<br>&nbsp;&nbsp;&nbsp;- [iformat](#iformatint-ftype)<br>&nbsp;&nbsp;&nbsp;- [pairs](#pairstbl-func)<br>&nbsp;&nbsp;&nbsp;- [printt](#printttbl-condition)<br>&nbsp;&nbsp;&nbsp;- [round](#roundnumber-decimals)<br>&nbsp;&nbsp;&nbsp;- [tcount](#tcounttbl-key-value)<br>&nbsp;&nbsp;&nbsp;- [tpairs](#tpairstbl-callback-duration-key-value)<br>&nbsp;&nbsp;&nbsp;- [unpack](#unpacktbl-default)
+- [LibAddonUtils](#libaddonutils)
+  - [Table of Contents](#table-of-contents)
+  - [Embedding the library](#embedding-the-library)
+  - [API](#api)
+    - [.CacheItem(*item, callback, args*)](#cacheitemitem-callback-args)
+    - [.ColorFontString(*str, color*)](#colorfontstringstr-color)
+    - [.GetTableKey(*tbl, value*)](#gettablekeytbl-value)
+    - [.iformat(*int, fType, roundDown*)](#iformatint-ftype-rounddown)
+    - [.pairs(*tbl, func*)](#pairstbl-func)
+    - [.printt(*tbl, condition*)](#printttbl-condition)
+    - [.round(*number, decimals, roundDown*)](#roundnumber-decimals-rounddown)
+    - [.tcount(*tbl, key, value*)](#tcounttbl-key-value)
+    - [.tpairs(*tbl, callback, duration, key, value*)](#tpairstbl-callback-duration-key-value)
+    - [.unpack(*tbl, default*)](#unpacktbl-default)
 
 ## Embedding the library
 **1. Create a folder called *Libs* in your addon directory and copy *LibAddonUtils* to this folder.**
@@ -100,11 +112,11 @@ all matched keys.
 
 [top](#libaddonutils)
 
-### .iformat(*int, fType*)
+### .iformat(*int, fType, roundDown*)
 *Formats the supplied integer.*
 
 **Args:**
-**int**: integer to be formatted.<br>**fType**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - adds commas to the integer (2000 > 2,000).<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - abbreviates the integer (2000 > 2k).
+**int**: integer to be formatted.<br>**fType**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - adds commas to the integer (2000 > 2,000).<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - abbreviates the integer (2000 > 2k).<br>**roundDown**: floors (rounds down) the number.<br>
 
 **Returns:**
 the formatted integer.
@@ -129,12 +141,12 @@ the formatted integer.
 
 [top](#libaddonutils)
 
-### .round(*number, decimals*)
+### .round(*number, decimals, roundDown*)
 
 *Rounds a number to x decimals.*
 
 **Args:**
-**number**: integer to be rounded.<br>**decimals**: the number of decimal places to round to.
+**number**: integer to be rounded.<br>**decimals**: the number of decimal places to round to.<br>**roundDown**: floors (rounds down) the number.
 
 **Example:**
 ```
