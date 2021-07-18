@@ -1,5 +1,5 @@
 # LibAddonUtils
-## Version 1.3.1
+## Version 1.3.2
 - Added argument *roundDown* to **round** and **iformat**.
 
 ## Version 1.3.1
