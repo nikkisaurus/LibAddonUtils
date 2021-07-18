@@ -1,4 +1,5 @@
 ## Interface: 90100
+## Interface-Retail: 90100
 ## Title: Lib: LibAddonUtils
 ## Author: Nikketa-Hyjal-US
 ## Notes: Collection of useful tools for addon authors.
