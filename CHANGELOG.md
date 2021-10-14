@@ -1,4 +1,7 @@
 # LibAddonUtils
+## Version 1.3.3
+- Added argument *sorting* to **tpairs**.
+
 ## Version 1.3.2
 - Added argument *roundDown* to **round** and **iformat**.
 

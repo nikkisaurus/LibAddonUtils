@@ -14,7 +14,7 @@
     - [.printt(*tbl, condition*)](#printttbl-condition)
     - [.round(*number, decimals, roundDown*)](#roundnumber-decimals-rounddown)
     - [.tcount(*tbl, key, value*)](#tcounttbl-key-value)
-    - [.tpairs(*tbl, callback, duration, key, value*)](#tpairstbl-callback-duration-key-value)
+    - [.tpairs(*tbl, callback, duration, key, value, sorting*)](#tpairstbl-callback-duration-key-value)
     - [.unpack(*tbl, default*)](#unpacktbl-default)
 
 ## Embedding the library
@@ -167,11 +167,11 @@ the formatted integer.
 
 [top](#libaddonutils)
 
-### .tpairs(*tbl, callback, duration, key, value*)
+### .tpairs(*tbl, callback, duration, key, value, sorting*)
 *Throttles iterations over a table to one table entry per duration seconds.*
 
 **Args:**
-**tbl**: table to be iterated.<br>**callback**: function to be called at each iteration.<br>**duration**: number of seconds between each iteration, as an integer.<br>**key**: only iterate table entries with keys that match this paramater.<br>**value**: only iterate table entries with values that match this paramater.
+**tbl**: table to be iterated.<br>**callback**: function to be called at each iteration.<br>**duration**: number of seconds between each iteration, as an integer.<br>**key**: only iterate table entries with keys that match this paramater.<br>**value**: only iterate table entries with values that match this paramater.<br>**sorting**: custom sort func.
 
 **Returns:**
 *tbl* and *key* are returned to the callback function.

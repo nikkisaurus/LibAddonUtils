@@ -149,9 +149,9 @@ end
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 local keys = {}
-function lib.tpairs(tbl, callback, duration, key, value)
+function lib.tpairs(tbl, callback, duration, key, value, sorting)
     wipe(keys)
-    for k, v in pairs(tbl) do
+    for k, v in lib.pairs(tbl, sorting) do
         if (key and k == key) or (value and v[value]) or (not key and not value) then
             tinsert(keys, k)
         end
