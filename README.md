@@ -1,30 +1,34 @@
 # LibAddonUtils
-*This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of basic addon development tools.*
+
+_This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of basic addon development tools._
 
 ## Table of Contents
+
 - [LibAddonUtils](#libaddonutils)
   - [Table of Contents](#table-of-contents)
   - [Embedding the library](#embedding-the-library)
   - [API](#api)
-    - [.CacheItem(*item, callback, args*)](#cacheitemitem-callback-args)
-    - [.ColorFontString(*str, color*)](#colorfontstringstr-color)
-    - [.GetTableKey(*tbl, value*)](#gettablekeytbl-value)
-    - [.iformat(*int, fType, roundDown*)](#iformatint-ftype-rounddown)
-    - [.pairs(*tbl, func*)](#pairstbl-func)
-    - [.printt(*tbl, condition*)](#printttbl-condition)
-    - [.round(*number, decimals, roundDown*)](#roundnumber-decimals-rounddown)
-    - [.tcount(*tbl, key, value*)](#tcounttbl-key-value)
-    - [.tpairs(*tbl, callback, duration, key, value, sorting*)](#tpairstbl-callback-duration-key-value)
-    - [.unpack(*tbl, default*)](#unpacktbl-default)
+    - [.CacheItem(_item, callback, args_)](#cacheitemitem-callback-args)
+    - [.ColorFontString(_str, color_)](#colorfontstringstr-color)
+    - [:CloneTable(_tbl_)](#clonetabletbl)
+    - [.GetTableKey(_tbl, value_)](#gettablekeytbl-value)
+    - [.iformat(_int, fType, roundDown_)](#iformatint-ftype-rounddown)
+    - [.pairs(_tbl, func_)](#pairstbl-func)
+    - [.printt(_tbl, condition_)](#printttbl-condition)
+    - [.round(_number, decimals, roundDown_)](#roundnumber-decimals-rounddown)
+    - [.tcount(_tbl, key, value_)](#tcounttbl-key-value)
+    - [.tpairs(_tbl, callback, duration, key, value, sorting_)](#tpairstbl-callback-duration-key-value)
+    - [.unpack(_tbl, default_)](#unpacktbl-default)
 
 ## Embedding the library
-**1. Create a folder called *Libs* in your addon directory and copy *LibAddonUtils* to this folder.**
+
+**1. Create a folder called _Libs_ in your addon directory and copy _LibAddonUtils_ to this folder.**
 You can also place LibAddonUtils in your main directory, but having your libraries separate can help keep things organized.
 
-```ExampleAddon/Libs/LibAddonUtils```
+`ExampleAddon/Libs/LibAddonUtils`
 
 **2. Create an XML file.**
-```ExampleAddon/Libs/embeds.xml```
+`ExampleAddon/Libs/embeds.xml`
 
 If you are using multiple libraries, you can call them in the same file. The paths to libraries you are including should be relative to the embeds file.
 
@@ -39,6 +43,7 @@ In this example, my embeds.xml is in the Libs folder with all of the libraries I
 **Note**: You don't have to use an XML file to load libraries. You may also call them directly in your TOC.
 
 **3. Update your TOC.**
+
 ```
 ## Interface: 80200
 ## Title: ExampleAddon
@@ -50,16 +55,17 @@ Libs\embeds.xml
 
 Core.lua
 ```
+
 Always call libraries before your core addon files. Any files loaded before your embeds will not have access to the libraries.
 
 If you would rather skip the XML, point to the library's XML file instead:
 
-```Libs\LibAddonUtils\LibAddonUtils.xml```
+`Libs\LibAddonUtils\LibAddonUtils.xml`
 
 **4. Create an addon object.**
 In your core addon file, you need to create an object to reference LibAddonUtils. This library uses LibStub, so you can do that like this:
 
-```local LibAddonUtils = LibStub("LibAddonUtils-1.0")```
+`local LibAddonUtils = LibStub("LibAddonUtils-1.0")`
 
 You can now access any of this library's functions with this reference.
 
@@ -68,21 +74,25 @@ You can now access any of this library's functions with this reference.
 [top](#libaddonutils)
 
 ## API
-### .CacheItem(*item, callback, args*)
-*Use this method to cache items before calling GetItemInfo. You can supply a callback to execute when the item table is available.*
+
+### .CacheItem(_item, callback, args_)
+
+_Use this method to cache items before calling GetItemInfo. You can supply a callback to execute when the item table is available._
 
 **Args:**
 **itemID**: valid itemID, itemLink, itemName, or itemString.<br>**callback**: function to be called when the item has successfully been cached.<br>**args**: arguments to be sent to your callback function, as a vararg.
 
 **Returns:**
-*true* or *false* when item table is available.
+_true_ or _false_ when item table is available.
 
 **Example:**
+
 ```
 > local itemName = GetItemInfo(168487)
 > print(itemName)
 nil
 ```
+
 ```
 > LibAddonUtils.CacheItem(168487, function(itemID) print(GetItemInfo(itemID)) end, 168487)
 Zin'anthid
@@ -90,19 +100,33 @@ Zin'anthid
 
 [top](#libaddonutils)
 
-### .ColorFontString(*str, color*)
-*Colors the supplied font string.*
+### .ColorFontString(_str, color_)
+
+_Colors the supplied font string._
 
 **Args:**
-**str**: string to be colored.<br>**color**: valid color key:<br>&nbsp;&nbsp;&nbsp;&nbsp;***LIGHTRED, LIGHTBLUE, TORQUISEBLUE, SPRINGGREEN, GREENYELLOW, BLUE, PURPLE, GREEN, RED, GOLD, GOLD2, GREY, WHITE, SUBWHITE, MAGENTA, YELLOW, ORANGEY, CHOCOLATE, CYAN, IVORY, LIGHTYELLOW, SEXGREEN, SEXTEAL, SEXPINK, SEXBLUE, SEXHOTPINK***.
+**str**: string to be colored.<br>**color**: valid color key:<br>&nbsp;&nbsp;&nbsp;&nbsp;**_LIGHTRED, LIGHTBLUE, TORQUISEBLUE, SPRINGGREEN, GREENYELLOW, BLUE, PURPLE, GREEN, RED, GOLD, GOLD2, GREY, WHITE, SUBWHITE, MAGENTA, YELLOW, ORANGEY, CHOCOLATE, CYAN, IVORY, LIGHTYELLOW, SEXGREEN, SEXTEAL, SEXPINK, SEXBLUE, SEXHOTPINK_**.
 
 **Returns:**
 the colored font string.
 
 [top](#libaddonutils)
 
-### .GetTableKey(*tbl, value*)
-*Finds the key of the supplied table value.*
+### :CloneTable(_tbl_)
+
+_Recursively clones the supplied table._
+
+**Args:**
+**tbl**: table to be cloned.
+
+**Returns:**
+cloned table.
+
+[top](#libaddonutils)
+
+### .GetTableKey(_tbl, value_)
+
+_Finds the key of the supplied table value._
 
 **Args:**
 **tbl**: table to be searched.<br>**value**: value to match.
@@ -112,43 +136,45 @@ all matched keys.
 
 [top](#libaddonutils)
 
-### .iformat(*int, fType, roundDown*)
-*Formats the supplied integer.*
+### .iformat(_int, fType, roundDown_)
+
+_Formats the supplied integer._
 
 **Args:**
-**int**: integer to be formatted.<br>**fType**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - adds commas to the integer (2000 > 2,000).<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - abbreviates the integer (2000 > 2k).<br>**roundDown**: floors (rounds down) the number.<br>
+**int**: integer to be formatted.<br>**fType**:<br>&nbsp;&nbsp;&nbsp;&nbsp;**_1_** - adds commas to the integer (2000 > 2,000).<br>&nbsp;&nbsp;&nbsp;&nbsp;**_2_** - abbreviates the integer (2000 > 2k).<br>**roundDown**: floors (rounds down) the number.<br>
 
 **Returns:**
 the formatted integer.
 
 [top](#libaddonutils)
 
-### .pairs(*tbl, func*)
+### .pairs(_tbl, func_)
 
-*Iterates through a table based on keys.*
+_Iterates through a table based on keys._
 
 **Args:**
 **tbl**: table to be iterated.<br>**func**: custom sort function.
 
 [top](#libaddonutils)
 
-### .printt(*tbl, condition*)
+### .printt(_tbl, condition_)
 
-*Prints out table keys/values.*
+_Prints out table keys/values._
 
 **Args:**
-**tbl**: table to be printed.<br>**condition**:<br>&nbsp;&nbsp;&nbsp;&nbsp;***1*** - prints key names.<br>&nbsp;&nbsp;&nbsp;&nbsp;***2*** - prints table values.<br>&nbsp;&nbsp;&nbsp;&nbsp;***nil*** - prints key/value pairs.
+**tbl**: table to be printed.<br>**condition**:<br>&nbsp;&nbsp;&nbsp;&nbsp;**_1_** - prints key names.<br>&nbsp;&nbsp;&nbsp;&nbsp;**_2_** - prints table values.<br>&nbsp;&nbsp;&nbsp;&nbsp;**_nil_** - prints key/value pairs.
 
 [top](#libaddonutils)
 
-### .round(*number, decimals, roundDown*)
+### .round(_number, decimals, roundDown_)
 
-*Rounds a number to x decimals.*
+_Rounds a number to x decimals._
 
 **Args:**
 **number**: integer to be rounded.<br>**decimals**: the number of decimal places to round to.<br>**roundDown**: floors (rounds down) the number.
 
 **Example:**
+
 ```
 > print(LibAddonUtils.round(3.14, 0))
 3
@@ -156,27 +182,30 @@ the formatted integer.
 
 [top](#libaddonutils)
 
-### .tcount(*tbl, key, value*)
-*Counts the number of entries in a table.*
+### .tcount(_tbl, key, value_)
+
+_Counts the number of entries in a table._
 
 **Args:**
 **tbl**: table to be counted.<br>**key**: only count table entries with keys that match this paramater.<br>**value**: only count table entries with values that match this paramater.
 
 **Returns:**
-*count* as an integer.
+_count_ as an integer.
 
 [top](#libaddonutils)
 
-### .tpairs(*tbl, callback, duration, key, value, sorting*)
-*Throttles iterations over a table to one table entry per duration seconds.*
+### .tpairs(_tbl, callback, duration, key, value, sorting_)
+
+_Throttles iterations over a table to one table entry per duration seconds._
 
 **Args:**
 **tbl**: table to be iterated.<br>**callback**: function to be called at each iteration.<br>**duration**: number of seconds between each iteration, as an integer.<br>**key**: only iterate table entries with keys that match this paramater.<br>**value**: only iterate table entries with values that match this paramater.<br>**sorting**: custom sort func.
 
 **Returns:**
-*tbl* and *key* are returned to the callback function.
+_tbl_ and _key_ are returned to the callback function.
 
 **Example:**
+
 ```
 >local myTable = {key1 = "specialValue", key2 = "value", key3 = "value", key4 = "specialValue"}
 >LibAddonUtils.tpairs(myTable, function(tbl, key) print(key, tbl[key]) end, 0.01, nil, "specialValue")
@@ -186,13 +215,15 @@ key4, specialValue
 
 [top](#libaddonutils)
 
-### .unpack(*tbl, default*)
-*Unpacks tables with or without indexes (unlike the default behavior of unpack, which only accepts non-indexed tables) and allows you to specify a default table to return if tbl cannot be unpacked.*
+### .unpack(_tbl, default_)
+
+_Unpacks tables with or without indexes (unlike the default behavior of unpack, which only accepts non-indexed tables) and allows you to specify a default table to return if tbl cannot be unpacked._
 
 **Args:**
-**tbl**: table to be unpacked.<br>**default**: table to unpack if *tbl* is invalid.
+**tbl**: table to be unpacked.<br>**default**: table to unpack if _tbl_ is invalid.
 
 **Example:**
+
 ```
 db.style = "minimal"
 local styles = {
@@ -205,9 +236,9 @@ local styles = {
 ```
 
 The following will cause a Lua error:
-```texture:SetColorTexture(unpack(styles[db.style].rgba))```
+`texture:SetColorTexture(unpack(styles[db.style].rgba))`
 
 Use this method to pass a default table .
-```texture:SetColorTexture(LibAddonUtils.unpack(styles[db.style].rgba, {0, 0, 0, .75}))```
+`texture:SetColorTexture(LibAddonUtils.unpack(styles[db.style].rgba, {0, 0, 0, .75}))`
 
 [top](#libaddonutils)
