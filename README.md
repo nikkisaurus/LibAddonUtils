@@ -9,8 +9,9 @@ _This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of ba
   - [Embedding the library](#embedding-the-library)
   - [API](#api)
     - [.CacheItem(_item, callback, args_)](#cacheitemitem-callback-args)
+    - [.CloneTable(_tbl_)](#clonetabletbl)
     - [.ColorFontString(_str, color_)](#colorfontstringstr-color)
-    - [:CloneTable(_tbl_)](#clonetabletbl)
+    - [.EnumerateString(_str, validationFunc_)](#enumeratestringstr-validationFunc)
     - [.GetTableKey(_tbl, value_)](#gettablekeytbl-value)
     - [.iformat(_int, fType, roundDown_)](#iformatint-ftype-rounddown)
     - [.pairs(_tbl, func_)](#pairstbl-func)
@@ -94,9 +95,23 @@ nil
 ```
 
 ```
-> LibAddonUtils.CacheItem(168487, function(itemID) print(GetItemInfo(itemID)) end, 168487)
+> LibAddonUtils.CacheItem(168487, function(itemID)
+>     print(GetItemInfo(itemID))
+> end, 168487)
 Zin'anthid
 ```
+
+[top](#libaddonutils)
+
+### :CloneTable(_tbl_)
+
+_Recursively clones the supplied table._
+
+**Args:**
+**tbl**: table to be cloned.
+
+**Returns:**
+cloned table.
 
 [top](#libaddonutils)
 
@@ -112,15 +127,28 @@ the colored font string.
 
 [top](#libaddonutils)
 
-### :CloneTable(_tbl_)
+### .EnumerateString(_str, validationFunc_)
 
-_Recursively clones the supplied table._
+_Adds an incremental number to the provided string._
 
 **Args:**
-**tbl**: table to be cloned.
+**str**: string to be enumerated.<br>**validationFunc**: function to validate the enumerated string.
 
 **Returns:**
-cloned table.
+the enumerated font string.
+
+**Example:**
+
+```
+> local db = {New = true, "New 2" = true, "New 4" = true}
+> function(key)
+>     return db[key]
+> end
+> print(LibAddonUtils.EnumerateString("New", KeyExists))
+New 3
+> print(LibAddonUtils.EnumerateString("New", KeyExists))
+New 5
+```
 
 [top](#libaddonutils)
 
@@ -208,7 +236,9 @@ _tbl_ and _key_ are returned to the callback function.
 
 ```
 >local myTable = {key1 = "specialValue", key2 = "value", key3 = "value", key4 = "specialValue"}
->LibAddonUtils.tpairs(myTable, function(tbl, key) print(key, tbl[key]) end, 0.01, nil, "specialValue")
+>LibAddonUtils.tpairs(myTable, function(tbl, key)
+>     print(key, tbl[key])
+> end, 0.01, nil, "specialValue")
 key1, specialValue
 key4, specialValue
 ```
@@ -225,20 +255,18 @@ _Unpacks tables with or without indexes (unlike the default behavior of unpack, 
 **Example:**
 
 ```
-db.style = "minimal"
-local styles = {
-    ["default"] = {
-        rgba = {1, 1, 1, 1}
-    },
-    ["minimal"] = {
-    },
-}
+> db.style = "minimal"
+> local styles = {
+>     ["default"] = {
+>         rgba = {1, 1, 1, 1}
+>     },
+>     ["minimal"] = {
+>     },
+> }
+> texture:SetColorTexture(unpack(styles[db.style].rgba))
+bad argument #1 to 'unpack' (table expected, got nil)
+> texture:SetColorTexture(LibAddonUtils.unpack(styles[db.style].rgba, {0, 0, 0, .75}))
+>
 ```
-
-The following will cause a Lua error:
-`texture:SetColorTexture(unpack(styles[db.style].rgba))`
-
-Use this method to pass a default table .
-`texture:SetColorTexture(LibAddonUtils.unpack(styles[db.style].rgba, {0, 0, 0, .75}))`
 
 [top](#libaddonutils)

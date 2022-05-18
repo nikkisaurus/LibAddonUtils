@@ -3,6 +3,7 @@
 ## Version 1.3.4
 
 - Added function **CloneTable**.
+- Added function **EnumerateString**.
 
 ## Version 1.3.3
 

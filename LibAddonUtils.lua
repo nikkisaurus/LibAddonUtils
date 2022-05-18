@@ -89,15 +89,15 @@ end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Tables
 
-function lib:CloneTable(orig)
+function lib.CloneTable(orig)
 	-- https://forum.cockos.com/showthread.php?t=221712
 	local copy
 	if type(orig) == "table" then
 		copy = {}
 		for orig_key, orig_value in pairs(orig) do
-			copy[self:CloneTable(orig_key)] = self:CloneTable(orig_value)
+			copy[lib.CloneTable(orig_key)] = lib.CloneTable(orig_value)
 		end
-		setmetatable(copy, self:CloneTable(getmetatable(orig)))
+		setmetatable(copy, lib.CloneTable(getmetatable(orig)))
 	else -- number, string, boolean, etc
 		copy = orig
 	end
@@ -287,6 +287,19 @@ function lib.ColorFontString(str, color)
 	return string.format("%s%s|r", lib.ChatColors[strupper(color)], str)
 end
 
+function lib.EnumerateString(str, validationFunc)
+	local i = 2
+	while true do
+		local enumerated = format("%s %d", str, i)
+
+		if not validationFunc(enumerated) then
+			return enumerated
+		else
+			i = i + 1
+		end
+	end
+end
+
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Embeds
 
 lib.mixinTargets = lib.mixinTargets or {}
@@ -302,6 +315,7 @@ local mixins = {
 	"unpack",
 	"CacheItem",
 	"ColorFontString",
+	"EnumerateString",
 }
 
 function lib:Embed(target)
