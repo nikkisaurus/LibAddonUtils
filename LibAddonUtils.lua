@@ -229,8 +229,8 @@ function lib.CacheItem(itemID, callback, ...)
 	if itemID and not GetItemInfo(itemID) then
 		tinsert(cache, { itemID, callback, lib.unpack(args) })
 		return false
-	elseif callback then
-		callback(lib.unpack(args))
+	elseif itemID and callback then
+		callback(lib.unpack(args), itemID)
 		return true
 	end
 end
@@ -287,17 +287,50 @@ function lib.ColorFontString(str, color)
 	return string.format("%s%s|r", lib.ChatColors[strupper(color)], str)
 end
 
-function lib.EnumerateString(str, validationFunc)
+function lib.EnumerateString(str, validationFunc, ...)
+	local enumerated = str
 	local i = 2
-	while true do
-		local enumerated = format("%s %d", str, i)
+	while validationFunc(enumerated, ...) do
+		enumerated = format("%s %d", str, i)
 
-		if not validationFunc(enumerated) then
-			return enumerated
+		if not validationFunc(enumerated, ...) then
+			break
 		else
 			i = i + 1
 		end
 	end
+
+	return enumerated
+end
+
+function lib.IncrementString(str, obj, validateFunc, ...)
+	local func = validateFunc and obj[validateFunc] or _G[validateFunc]
+	local args = { ... }
+
+	if func(obj, unpack(args), str) then
+		local i = 2
+		while true do
+			local newStr = format("%s %d", str, i)
+
+			if not func(obj, unpack(args), newStr) then
+				return newStr
+			else
+				i = i + 1
+			end
+		end
+	else
+		return str
+	end
+end
+
+function lib.StringToTitle(str)
+	local strs = { strsplit(" ", str) }
+
+	for key, Str in pairs(strs) do
+		strs[key] = strupper(strsub(Str, 1, 1)) .. strlower(strsub(Str, 2, strlen(Str)))
+	end
+
+	return table.concat(strs, " ")
 end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- Embeds
@@ -314,8 +347,11 @@ local mixins = {
 	"tpairs",
 	"unpack",
 	"CacheItem",
+	"ValidateItem",
 	"ColorFontString",
 	"EnumerateString",
+	"IncrementString",
+	"StringToTitle",
 }
 
 function lib:Embed(target)

@@ -4,22 +4,23 @@ _This library was created by **Niketa** (Nikketa-Hyjal-US) as a collection of ba
 
 ## Table of Contents
 
-- [LibAddonUtils](#libaddonutils)
-  - [Table of Contents](#table-of-contents)
-  - [Embedding the library](#embedding-the-library)
-  - [API](#api)
-    - [.CacheItem(_item, callback, args_)](#cacheitemitem-callback-args)
-    - [.CloneTable(_tbl_)](#clonetabletbl)
-    - [.ColorFontString(_str, color_)](#colorfontstringstr-color)
-    - [.EnumerateString(_str, validationFunc_)](#enumeratestringstr-validationFunc)
-    - [.GetTableKey(_tbl, value_)](#gettablekeytbl-value)
-    - [.iformat(_int, fType, roundDown_)](#iformatint-ftype-rounddown)
-    - [.pairs(_tbl, func_)](#pairstbl-func)
-    - [.printt(_tbl, condition_)](#printttbl-condition)
-    - [.round(_number, decimals, roundDown_)](#roundnumber-decimals-rounddown)
-    - [.tcount(_tbl, key, value_)](#tcounttbl-key-value)
-    - [.tpairs(_tbl, callback, duration, key, value, sorting_)](#tpairstbl-callback-duration-key-value)
-    - [.unpack(_tbl, default_)](#unpacktbl-default)
+-   [LibAddonUtils](#libaddonutils)
+    -   [Table of Contents](#table-of-contents)
+    -   [Embedding the library](#embedding-the-library)
+    -   [API](#api)
+        -   [.CacheItem(_item, callback, args_)](#cacheitemitem-callback-args)
+        -   [.CloneTable(_tbl_)](#clonetabletbl)
+        -   [.ColorFontString(_str, color_)](#colorfontstringstr-color)
+        -   [.IncrementString(_str, obj, validationFunc, args_)](#incrementstringstr-obj-validationfunc-args)
+        -   [.StringToTitle(_str_)](#stringtotitlestr)
+        -   [.GetTableKey(_tbl, value_)](#gettablekeytbl-value)
+        -   [.iformat(_int, fType, roundDown_)](#iformatint-ftype-rounddown)
+        -   [.pairs(_tbl, func_)](#pairstbl-func)
+        -   [.printt(_tbl, condition_)](#printttbl-condition)
+        -   [.round(_number, decimals, roundDown_)](#roundnumber-decimals-rounddown)
+        -   [.tcount(_tbl, key, value_)](#tcounttbl-key-value)
+        -   [.tpairs(_tbl, callback, duration, key, value, sorting_)](#tpairstbl-callback-duration-key-value)
+        -   [.unpack(_tbl, default_)](#unpacktbl-default)
 
 ## Embedding the library
 
@@ -103,7 +104,7 @@ Zin'anthid
 
 [top](#libaddonutils)
 
-### :CloneTable(_tbl_)
+### .CloneTable(_tbl_)
 
 _Recursively clones the supplied table._
 
@@ -127,12 +128,12 @@ the colored font string.
 
 [top](#libaddonutils)
 
-### .EnumerateString(_str, validationFunc_)
+### .IncrementString(_str, obj, validationFunc, args_)
 
 _Adds an incremental number to the provided string._
 
 **Args:**
-**str**: string to be enumerated.<br>**validationFunc**: function to validate the enumerated string.
+**str**: string to be enumerated.<br>**obj**: Object of which validationFunc should be called from. Must return an object or nil.<br>**validationFunc**: function to validate the enumerated string.<br>**args**: args to be passed to validationfunc. The string provided to this function will be called last in the validation function.
 
 **Returns:**
 the enumerated font string.
@@ -144,11 +145,23 @@ the enumerated font string.
 > function(key)
 >     return db[key]
 > end
-> print(LibAddonUtils.EnumerateString("New", KeyExists))
+> print(LibAddonUtils.IncrementString("New", nil, "KeyExists"))
 New 3
-> print(LibAddonUtils.EnumerateString("New", KeyExists))
+> print(LibAddonUtils.IncrementString("New", nil, "KeyExists"))
 New 5
 ```
+
+[top](#libaddonutils)
+
+### .StringToTitle(_str_)
+
+_Converts the provided string to title case._
+
+**Args:**
+**str**: string to be transformed.
+
+**Returns:**
+the transformed font string.
 
 [top](#libaddonutils)
 
