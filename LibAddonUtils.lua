@@ -230,7 +230,7 @@ function lib.CacheItem(itemID, callback, ...)
 		tinsert(cache, { itemID, callback, lib.unpack(args) })
 		return false
 	elseif itemID and callback then
-		callback(lib.unpack(args), itemID)
+		callback(itemID, lib.unpack(args))
 		return true
 	end
 end

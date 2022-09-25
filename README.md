@@ -82,7 +82,7 @@ You can now access any of this library's functions with this reference.
 _Use this method to cache items before calling GetItemInfo. You can supply a callback to execute when the item table is available._
 
 **Args:**
-**itemID**: valid itemID, itemLink, itemName, or itemString.<br>**callback**: function to be called when the item has successfully been cached.<br>**args**: arguments to be sent to your callback function, as a vararg.
+**itemID**: valid itemID, itemLink, itemName, or itemString.<br>**callback**: function to be called when the item has successfully been cached.<br>**args**: arguments to be sent to your callback function after itemID, as a vararg.
 
 **Returns:**
 _true_ or _false_ when item table is available.
@@ -96,10 +96,10 @@ nil
 ```
 
 ```
-> LibAddonUtils.CacheItem(168487, function(itemID)
->     print(GetItemInfo(itemID))
-> end, 168487)
-Zin'anthid
+> LibAddonUtils.CacheItem(168487, function(itemID, arg)
+>     print(GetItemInfo(itemID), arg)
+> end, "Test argument")
+Zin'anthid Test argument
 ```
 
 [top](#libaddonutils)

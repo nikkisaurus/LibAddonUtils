@@ -1,5 +1,9 @@
 # LibAddonUtils
 
+## Version 1.4.1
+
+-   Fixed error within **CacheItem** where incorrect arguments were passed to callback.
+
 ## Version 1.4
 
 -   Added function **IncrementString**.
