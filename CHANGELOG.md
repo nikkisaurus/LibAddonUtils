@@ -1,6 +1,6 @@
 # LibAddonUtils
 
-## Version 1.4.1
+## Version 1.4.2
 
 -   Fixed error within **CacheItem** where incorrect arguments were passed to callback.
 
